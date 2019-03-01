@@ -1,6 +1,4 @@
-# Dependency conflicts solved
-
-**No more doctrine/common and doctrine/annotations issues when using Laravel Framework!**
+**No more doctrine/common and doctrine/annotations issues when using Laravel Framework.**
 
 ## Why made a fork?
 
