@@ -2,7 +2,7 @@
 
 Added support for PHP 7.x and Laravel Framework.
 
-*No more doctrine/common and doctrine/annotations issues!*
+_No more doctrine/common and doctrine/annotations issues!_
 
 ## Mercado Pago SDK for PHP
 
