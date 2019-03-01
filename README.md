@@ -1,8 +1,6 @@
-# Truly PHP 7.x and Laravel support!
+# Dependency conflicts solved
 
-Added support for PHP 7.x and Laravel Framework.
-
-_No more doctrine/common and doctrine/annotations issues!_
+**No more doctrine/common and doctrine/annotations issues when using Laravel Framework!**
 
 ## Why made a fork?
 
