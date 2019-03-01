@@ -1,6 +1,10 @@
-# Mercado Pago SDK for PHP
+# Truly PHP 7.x and Laravel support!
 
-[![Build Status](https://travis-ci.org/mercadopago/dx-php.png)](https://travis-ci.org/mercadopago/dx-php)
+Added support for PHP 7.x and Laravel Framework.
+
+*No more doctrine/common and doctrine/annotations issues!*
+
+## Mercado Pago SDK for PHP
 
 This library provides developers with a simple set of bindings to the Mercado Pago API.
 
@@ -28,7 +32,11 @@ The SDK supports PHP 5.6 or major
   require __DIR__  . '/vendor/autoload.php';
   ```
 
-2. Setup your credentials
+2. Setup your credentials or major
+10
+​
+11
+
 
   You have two types of credentials:
 
