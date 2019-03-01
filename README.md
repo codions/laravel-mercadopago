@@ -1,10 +1,18 @@
-# Mercado Pago SDK for PHP w/ PHP 7.x & Laravel support!
-
 # Truly PHP 7.x and Laravel support!
 
 Added support for PHP 7.x and Laravel Framework.
 
 _No more doctrine/common and doctrine/annotations issues!_
+
+## Why made a fork?
+
+Refer this issues/pull requests:
+
+https://github.com/mercadopago/dx-php/issues/78
+
+https://github.com/mercadopago/dx-php/issues/106
+
+https://github.com/mercadopago/dx-php/pull/136
 
 ## Mercado Pago SDK for PHP
 
@@ -19,7 +27,7 @@ The SDK supports PHP 5.6 or major
 #### Using Composer
 
 1. Download [Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-macos) if not already installed
-2. Go to your project directory and run `composer require "mercadopago/dx-php:1.2.6"` on the command line.
+2. Go to your project directory and run `composer require mercadopago/dx-php` on the command line.
 3. This how your directory structure would look like.
 
 ![screen shot 2017-12-27 at 7 07 47 pm](https://user-images.githubusercontent.com/864790/34394635-44f7745a-eb39-11e7-981d-77cf759cf05f.png)
