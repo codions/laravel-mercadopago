@@ -1,7 +1,7 @@
 {
-  "name": "mercadopago/dx-php",
+  "name": "mercadopago/mercadopago-dx-php-laravel",
   "type": "library",
-  "homepage": "https://github.com/bachilli/mercadopago-dx-php-laravel",
+  "homepage": "https://github.com/melhorenvio/mercadopago-dx-php-laravel",
   "license": "MIT",
   "config": {
     "platform": {
