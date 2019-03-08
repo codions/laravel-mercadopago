@@ -11,7 +11,7 @@ https://github.com/mercadopago/dx-php/issues/106
 https://github.com/mercadopago/dx-php/pull/136
 
 ## Disclaimers
-The current release of the application is in active development by the official mainteners (MercadoPago). So expect delayed updates here.
+The current release of the application is in active development by the official mainteners (MercadoPago). Expect delayed updates here.
 
 This is **not** an official MercadoPago package. We only fixed some compatibility issues that the official maintener ignore. This package is not formally supported and the code is available as-is with no guarantees.
 
