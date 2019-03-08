@@ -10,6 +10,11 @@ https://github.com/mercadopago/dx-php/issues/106
 
 https://github.com/mercadopago/dx-php/pull/136
 
+## Disclaimers
+The current release of the application is in active development by the official mainteners (MercadoPago).
+
+This is **not** an official MercadoPago package. We only fixed some compatibility issues that the official maintener ignore. This package is not formally supported and the code is available as-is with no guarantees.
+
 ## Mercado Pago SDK for PHP
 
 This library provides developers with a simple set of bindings to the Mercado Pago API.
