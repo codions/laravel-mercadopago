@@ -1,7 +1,10 @@
-# Mercado Pago SDK for PHP & Laravel
+<p align="center"><img src="https://s3-sa-east-1.amazonaws.com/melhorenvio/logo-2.png"></p>
 
-[![Latest Stable Version](https://poser.pugx.org/melhorenvio/mercadopago-dx-php-laravel/v/stable)](https://packagist.org/packages/melhorenvio/mercadopago-dx-php-laravel)
-[![Total Downloads](https://poser.pugx.org/melhorenvio/mercadopago-dx-php-laravel/downloads)](https://packagist.org/packages/melhorenvio/mercadopago-dx-php-laravel)
+<p align="center">
+<a href="https://packagist.org/packages/melhorenvio/mercadopago-dx-php-laravel"><img src="https://poser.pugx.org/melhorenvio/mercadopago-dx-php-laravel/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/melhorenvio/mercadopago-dx-php-laravel"><img src="https://poser.pugx.org/melhorenvio/mercadopago-dx-php-laravel/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/melhorenvio/mercadopago-dx-php-laravel"><img src="https://poser.pugx.org/melhorenvio/mercadopago-dx-php-laravel/license.svg" alt="License"></a>
+</p>
 
 No more doctrine/common and doctrine/annotations issues when using Laravel Framework.
 
