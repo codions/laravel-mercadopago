@@ -1,7 +1,9 @@
-## Why made a fork?
+# Mercado Pago SDK for PHP & Laravel
 
 [![Latest Stable Version](https://poser.pugx.org/melhorenvio/mercadopago-dx-php-laravel/v/stable)](https://packagist.org/packages/melhorenvio/mercadopago-dx-php-laravel)
 [![Total Downloads](https://poser.pugx.org/melhorenvio/mercadopago-dx-php-laravel/downloads)](https://packagist.org/packages/melhorenvio/mercadopago-dx-php-laravel)
+
+## Why made a fork?
 
 **No more doctrine/common and doctrine/annotations issues when using Laravel Framework.**
 
