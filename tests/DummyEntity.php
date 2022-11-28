@@ -1,8 +1,11 @@
 <?php
+
 namespace MercadoPago;
-use MercadoPago\Annotation\RestMethod;
-use MercadoPago\Annotation\RequestParam;
+
 use MercadoPago\Annotation\Attribute;
+use MercadoPago\Annotation\RequestParam;
+use MercadoPago\Annotation\RestMethod;
+
 /**
  * @RestMethod(resource="/dummies", method="list")
  * @RestMethod(resource="/dummy/:id", method="read")

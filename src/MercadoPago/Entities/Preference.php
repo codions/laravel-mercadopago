@@ -1,16 +1,16 @@
 <?php
+
 namespace MercadoPago;
 
-use MercadoPago\Annotation\RestMethod;
-use MercadoPago\Annotation\RequestParam;
 use MercadoPago\Annotation\Attribute;
- 
+use MercadoPago\Annotation\RequestParam;
+use MercadoPago\Annotation\RestMethod;
 
 /**
  * @RestMethod(resource="/checkout/preferences", method="create")
  * @RestMethod(resource="/checkout/preferences/:id", method="read")
  * @RestMethod(resource="/checkout/preferences/:id", method="update")
- * @RequestParam(param="access_token") 
+ * @RequestParam(param="access_token")
  */
 class Preference extends Entity
 {
@@ -114,5 +114,4 @@ class Preference extends Entity
      * @Attribute()
      */
     protected $binary_mode;
-
 }

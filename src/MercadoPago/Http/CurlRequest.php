@@ -1,15 +1,13 @@
 <?php
+
 namespace MercadoPago\Http;
 
 use Exception;
 
 /**
- * CurlRequest Class Doc Comment
- *
- * @package MercadoPago\Http
+ * CurlRequest Class Doc Comment.
  */
-class CurlRequest
-    implements HttpRequest
+class CurlRequest implements HttpRequest
 {
     /**
      * @var null|resource
@@ -24,8 +22,8 @@ class CurlRequest
      */
     public function __construct($uri = null)
     {
-        if (!extension_loaded("curl")) {
-            throw new Exception("cURL extension not found. You need to enable cURL in your php.ini or another configuration you have.");
+        if (!extension_loaded('curl')) {
+            throw new Exception('cURL extension not found. You need to enable cURL in your php.ini or another configuration you have.');
         }
         $this->handle = curl_init($uri);
 

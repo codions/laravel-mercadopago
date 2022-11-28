@@ -1,12 +1,12 @@
 <?php
+
 namespace MercadoPago\Config;
+
 use Exception;
 use Symfony\Component\Yaml\Yaml as YamlParser;
 
 /**
- * Yaml Class Doc Comment
- *
- * @package MercadoPago\Config
+ * Yaml Class Doc Comment.
  */
 class Yaml implements ParserInterface
 {
@@ -23,6 +23,7 @@ class Yaml implements ParserInterface
         } catch (Exception $exception) {
             throw new Exception('Error parsing YAML file');
         }
+
         return $data;
     }
 
@@ -31,6 +32,6 @@ class Yaml implements ParserInterface
      */
     public function getSupportedExtensions()
     {
-        return array('yaml', 'yml');
+        return ['yaml', 'yml'];
     }
 }

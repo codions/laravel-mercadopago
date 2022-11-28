@@ -1,13 +1,11 @@
 <?php
+
 namespace MercadoPago;
 
 use MercadoPago\Annotation\Attribute;
-use MercadoPago\Annotation\DenyDynamicAttribute;
 
 /**
- * Payer Class Doc Comment
- *
- * @package MercadoPago
+ * Payer Class Doc Comment.
  */
 class Item extends Entity
 {
@@ -43,5 +41,4 @@ class Item extends Entity
      * @Attribute(type = "float")
      */
     protected $unit_price;
-
 }

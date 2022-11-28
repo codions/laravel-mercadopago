@@ -1,8 +1,10 @@
 <?php
+
 namespace MercadoPago;
-use MercadoPago\Annotation\RestMethod;
+
+use MercadoPago\Annotation\Attribute;
 use MercadoPago\Annotation\RequestParam;
-use MercadoPago\Annotation\Attribute; 
+use MercadoPago\Annotation\RestMethod;
 
 /**
  * @RestMethod(resource="/v1/payments", method="create")
@@ -255,7 +257,7 @@ class Payment extends Entity
      * @Attribute()
      */
     protected $notification_url;
-    /** 
+    /**
      * @Attribute()
      */
     protected $issuer_id;
@@ -266,15 +268,15 @@ class Payment extends Entity
     /**
      * @Attribute()
      */
-    protected $merchant_account_id; 
+    protected $merchant_account_id;
     /**
      * @Attribute()
      */
-    protected $merchant_number; 
+    protected $merchant_number;
     /**
      * @Attribute()
      */
-    protected $metadata; 
+    protected $metadata;
     /**
      * @Attribute()
      */

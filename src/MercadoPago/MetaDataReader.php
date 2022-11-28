@@ -1,14 +1,13 @@
 <?php
+
 namespace MercadoPago;
 
-use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Doctrine\Common\Annotations\Reader;
 
 /**
- * MetaDataReader Class Doc Comment
- *
- * @package MercadoPago
+ * MetaDataReader Class Doc Comment.
  */
 class MetaDataReader
 {
@@ -30,9 +29,8 @@ class MetaDataReader
         AnnotationRegistry::registerFile(__DIR__ . '/Annotation/DenyDynamicAttribute.php');
 
         $this->_reader = new AnnotationReader();
-        
-        return $this;
 
+        return $this;
     }
 
     /**

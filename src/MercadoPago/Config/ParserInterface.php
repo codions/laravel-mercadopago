@@ -1,10 +1,9 @@
 <?php
+
 namespace MercadoPago\Config;
 
 /**
- * Interface ParserInterface
- *
- * @package MercadoPago\Config
+ * Interface ParserInterface.
  */
 interface ParserInterface
 {

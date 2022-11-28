@@ -2,17 +2,17 @@
 
 namespace MercadoPago;
 
-use MercadoPago\Annotation\RestMethod;
-use MercadoPago\Annotation\RequestParam;
 use MercadoPago\Annotation\Attribute;
+use MercadoPago\Annotation\RequestParam;
+use MercadoPago\Annotation\RestMethod;
 
 /**
  * @RestMethod(resource="/v1/payments/:payment_id/refunds", method="create")
  * @RestMethod(resource="/v1/payments/:payment_id/refunds/:id", method="read")
  * @RequestParam(param="access_token")
  */
-class Shipments extends Entity {
-
+class Shipments extends Entity
+{
     /**
      * @Attribute()
      */
@@ -45,9 +45,4 @@ class Shipments extends Entity {
      * @Attribute()
      */
     protected $default_shipping_method;
-    
-
 }
-
-
-?>

@@ -1,9 +1,10 @@
 <?php
+
 namespace MercadoPago;
 
-use MercadoPago\Annotation\RestMethod;
-use MercadoPago\Annotation\RequestParam;
 use MercadoPago\Annotation\Attribute;
+use MercadoPago\Annotation\RequestParam;
+use MercadoPago\Annotation\RestMethod;
 
 /**
  * @RestMethod(resource="/authorized_payment", method="create")
@@ -12,7 +13,6 @@ use MercadoPago\Annotation\Attribute;
  * @RestMethod(resource="/authorized_payment/:id", method="update")
  * @RequestParam(param="access_token")
  */
-
 class AuthorizedPayment extends Entity
 {
     /**
@@ -69,13 +69,13 @@ class AuthorizedPayment extends Entity
      */
     protected $reason;
 
-     /**
+    /**
      * @Attribute(type = "string")
      * @var
      */
     protected $external_reference;
 
-     /**
+    /**
      * @Attribute(type = "object")
      * @var
      */
@@ -122,8 +122,4 @@ class AuthorizedPayment extends Entity
      * @var
      */
     protected $coupon_code;
-
-
 }
-
-?>

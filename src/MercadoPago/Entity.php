@@ -1,19 +1,19 @@
 <?php
+
 namespace MercadoPago;
+
 /**
- * Class Entity
- *
- * @package MercadoPago
+ * Class Entity.
  */
 abstract class Entity
 {
     /**
      * @var
      */
-    
-    protected static $_custom_headers = array();
+    protected static $_custom_headers = [];
     protected static $_manager;
     protected $_last;
+
     /**
      * Entity constructor.
      *
@@ -29,6 +29,7 @@ abstract class Entity
         self::$_manager->setEntityMetaData($this);
         $this->_fillFromArray($this, $params);
     }
+
     /**
      * @param Manager $manager
      */
@@ -36,93 +37,98 @@ abstract class Entity
     {
         self::$_manager = $manager;
     }
-    /**
-     */
+
     public static function unSetManager()
     {
         self::$_manager = null;
     }
+
     /**
      * @return mixed
      */
     public static function get($id)
     {
-      self::read(array("id" => $id));
+        self::read(['id' => $id]);
     }
+
     /**
      * @return mixed
      */
     public static function find_by_id($id)
-    { 
-      return self::read(array("id" => $id));
+    {
+        return self::read(['id' => $id]);
     }
+
     public static function setCustomHeader($key, $value)
     {
-      self::$_custom_headers[$key] = $value;
-    } 
+        self::$_custom_headers[$key] = $value;
+    }
+
     public static function getCustomHeader($key)
     {
-      return self::$_custom_headers[$key];
-    } 
-    public static function setCustomHeadersFromArray($array){
-      foreach ($array as $key => $value){ 
-        self::setCustomHeader($key, $value);
-      } 
+        return self::$_custom_headers[$key];
     }
+
+    public static function setCustomHeadersFromArray($array)
+    {
+        foreach ($array as $key => $value) {
+            self::setCustomHeader($key, $value);
+        }
+    }
+
     public static function getCustomHeaders()
     {
-      return self::$_custom_headers;
+        return self::$_custom_headers;
     }
+
     /**
      * @return mixed
      */
     public static function read($params = [])
-    { 
-      
-      $class = get_called_class();
-      $entity = new $class();
+    {
+        $class = get_called_class();
+        $entity = new $class();
 
-      self::$_manager->setEntityUrl($entity, 'read', $params);
-      self::$_manager->cleanQueryParams($entity);
-      self::$_manager->cleanEntityDeltaQueryJsonData($entity);
-      
-      $response =  self::$_manager->execute($entity, 'get');
- 
-      
-      if ($response['code'] == "200" || $response['code'] == "201") {   
-        $entity->_fillFromArray($entity, $response['body']);
-      }
-       
-      $entity->_last = clone $entity;
-      return $entity;
+        self::$_manager->setEntityUrl($entity, 'read', $params);
+        self::$_manager->cleanQueryParams($entity);
+        self::$_manager->cleanEntityDeltaQueryJsonData($entity);
+
+        $response = self::$_manager->execute($entity, 'get');
+
+        if ($response['code'] == '200' || $response['code'] == '201') {
+            $entity->_fillFromArray($entity, $response['body']);
+        }
+
+        $entity->_last = clone $entity;
+
+        return $entity;
     }
 
     /**
      * @return mixed
      */
     public static function all($params = [])
-    { 
-        
+    {
         $class = get_called_class();
         $entity = new $class();
-        $entities =  array();
+        $entities = [];
 
         self::$_manager->setEntityUrl($entity, 'list', $params);
-        self::$_manager->cleanQueryParams($entity); 
-      
+        self::$_manager->cleanQueryParams($entity);
+
         $response = self::$_manager->execute($entity, 'get');
-      
-        if ($response['code'] == "200" || $response['code'] == "201") {
+
+        if ($response['code'] == '200' || $response['code'] == '201') {
             $results = $response['body']['results'];
 
             foreach ($results as $result) {
                 $entity = new $class();
-                $entity->_fillFromArray($entity, $result); 
+                $entity->_fillFromArray($entity, $result);
                 array_push($entities, $entity);
             }
-            
         }
-        return $entities; 
+
+        return $entities;
     }
 
     /**
@@ -130,31 +136,30 @@ abstract class Entity
      */
     public static function search($filters = [])
     {
-    
-      $class = get_called_class();
-      
-      $entities =  array();
-      $entityToQuery = new $class();
-      
-      self::$_manager->setEntityUrl($entityToQuery, 'search');
-      self::$_manager->cleanQueryParams($entityToQuery);
-      self::$_manager->setQueryParams($entityToQuery, $filters);
+        $class = get_called_class();
 
-      $response = self::$_manager->execute($entityToQuery, 'get');
+        $entities = [];
+        $entityToQuery = new $class();
 
-      if ($response['code'] == "200" || $response['code'] == "201") {
-          $results = $response['body']['results'];
+        self::$_manager->setEntityUrl($entityToQuery, 'search');
+        self::$_manager->cleanQueryParams($entityToQuery);
+        self::$_manager->setQueryParams($entityToQuery, $filters);
 
-          foreach ($results as $result) {
-            $entity = new $class();
-            $entity->_fillFromArray($entity, $result); 
-            array_push($entities, $entity);
-          }
-          
-      }
-      return $entities;
+        $response = self::$_manager->execute($entityToQuery, 'get');
 
+        if ($response['code'] == '200' || $response['code'] == '201') {
+            $results = $response['body']['results'];
+
+            foreach ($results as $result) {
+                $entity = new $class();
+                $entity->_fillFromArray($entity, $result);
+                array_push($entities, $entity);
+            }
+        }
+
+        return $entities;
     }
+
     /**
      * @codeCoverageIgnore
      * @return mixed
@@ -162,8 +167,10 @@ abstract class Entity
     public function APCIteratorAll()
     {
         self::$_manager->setEntityUrl($this, 'list');
+
         return self::$_manager->execute($this, 'get');
     }
+
     /**
      * @codeCoverageIgnore
      * @return mixed
@@ -172,22 +179,24 @@ abstract class Entity
     {
         //return self::$_manager->execute(get_called_class(), '');
     }
+
     /**
      * @return mixed
      */
     public function update($params = [])
     {
-
         self::$_manager->setEntityUrl($this, 'update', $params);
-        self::$_manager->setEntityDeltaQueryJsonData($this); 
+        self::$_manager->setEntityDeltaQueryJsonData($this);
 
-        $response =  self::$_manager->execute($this, 'put');
+        $response = self::$_manager->execute($this, 'put');
 
-        if ($response['code'] == "200" || $response['code'] == "201") {
+        if ($response['code'] == '200' || $response['code'] == '201') {
             $this->_fillFromArray($this, $response['body']);
         }
+
         return $this;
     }
+
     /**
      * @codeCoverageIgnore
      * @return mixed
@@ -196,6 +205,7 @@ abstract class Entity
     {
         //return self::$_manager->execute(get_called_class(), '');
     }
+
     /**
      * @param $params
      *
@@ -206,40 +216,44 @@ abstract class Entity
         $class = get_called_class();
         $model = new $class($params);
         $model->save();
+
         return $model;
     }
+
     /**
      * @return mixed
      */
     public function custom_action($method, $action)
     {
-      self::$_manager->setEntityUrl($this, $action);
-      self::$_manager->setEntityQueryJsonData($this);
-      $response = self::$_manager->execute($this, $method);
-      if ($response['code'] == "200" || $response['code'] == "201") {
-          $this->_fillFromArray($this, $response['body']);
-      }
-      return $response;
+        self::$_manager->setEntityUrl($this, $action);
+        self::$_manager->setEntityQueryJsonData($this);
+        $response = self::$_manager->execute($this, $method);
+        if ($response['code'] == '200' || $response['code'] == '201') {
+            $this->_fillFromArray($this, $response['body']);
+        }
+
+        return $response;
     }
+
     /**
      * @return mixed
      */
     public function save()
-    { 
+    {
         self::$_manager->setEntityUrl($this, 'create');
         self::$_manager->setEntityQueryJsonData($this);
-        
+
         $response = self::$_manager->execute($this, 'post');
-         
-        
-        if ($response['code'] == "200" || $response['code'] == "201") {
+
+        if ($response['code'] == '200' || $response['code'] == '201') {
             $this->_fillFromArray($this, $response['body']);
         }
 
         $this->_last = clone $this;
-        
+
         return $this;
     }
+
     /**
      * @param $name
      *
@@ -249,6 +263,7 @@ abstract class Entity
     {
         return $this->{$name};
     }
+
     /**
      * @param $name
      *
@@ -258,6 +273,7 @@ abstract class Entity
     {
         return isset($this->{$name});
     }
+
     /**
      * @param $name
      * @param $value
@@ -268,17 +284,21 @@ abstract class Entity
     public function __set($name, $value)
     {
         $this->_setValue($name, $value);
+
         return $this->{$name};
     }
+
     /**
      * @param null $attributes
      *
      * @return array
      */
-    public function getAttributes() {
+    public function getAttributes()
+    {
         return get_object_vars($this);
     }
-     /**
+
+    /**
      * @param null $attributes
      *
      * @return array
@@ -293,25 +313,25 @@ abstract class Entity
             $result = get_object_vars($this);
         } else {
             $result = array_intersect_key(get_object_vars($this), $attributes);
-        }        
+        }
 
-        foreach ($excluded_attributes as $excluded_attribute) { 
+        foreach ($excluded_attributes as $excluded_attribute) {
             unset($result[$excluded_attribute]);
         }
 
         if (in_array('_last', $result)) {
             unset($result['_last']);
         }
-        
-        foreach ($result as $key => $value) { 
-            if (empty($value)) { 
+
+        foreach ($result as $key => $value) {
+            if (empty($value)) {
                 unset($result[$key]);
             }
         }
 
         return $result;
-    
     }
+
     /**
      * @param $property
      * @param $value
@@ -322,7 +342,7 @@ abstract class Entity
     {
         if ($this->_propertyExists($property)) {
             if ($validate) {
-                self::$_manager->validateAttribute($this, $property, ['maxLength','readOnly'], $value);
+                self::$_manager->validateAttribute($this, $property, ['maxLength', 'readOnly'], $value);
             }
             if ($this->_propertyTypeAllowed($property, $value)) {
                 $this->{$property} = $value;
@@ -336,6 +356,7 @@ abstract class Entity
             $this->{$property} = $value;
         }
     }
+
     /**
      * @param $property
      *
@@ -345,6 +366,7 @@ abstract class Entity
     {
         return array_key_exists($property, get_object_vars($this));
     }
+
     /**
      * @param $property
      * @param $type
@@ -358,10 +380,12 @@ abstract class Entity
             return true;
         }
         if (is_object($type) && class_exists($definedType, false)) {
-            return ($type instanceof $definedType);
+            return $type instanceof $definedType;
         }
+
         return gettype($type) == $definedType;
     }
+
     /**
      * @param $property
      *
@@ -371,6 +395,7 @@ abstract class Entity
     {
         return self::$_manager->getPropertyType(get_called_class(), $property);
     }
+
     /**
      * @return mixed
      */
@@ -378,6 +403,7 @@ abstract class Entity
     {
         return self::$_manager->getDynamicAttributeDenied(get_called_class());
     }
+
     /**
      * @param $value
      * @param $type
@@ -394,58 +420,59 @@ abstract class Entity
                     if (!is_numeric($value)) {
                         break;
                     }
-                    return (float)$value;
+
+                    return (float) $value;
                 case 'int':
                     if (!is_numeric($value)) {
                         break;
                     }
-                    return (int)$value;
+
+                    return (int) $value;
                 case 'string':
-                    return (string)$value;
+                    return (string) $value;
                 case 'array':
-                    return (array)$value;
+                    return (array) $value;
                 case 'date':
                     if (empty($value)) {
                         return $value;
-                    };
+                    }
                     if (is_string($value)) {
                         return date("Y-m-d\TH:i:s.000P", strtotime($value));
                     } else {
                         return $value->format('Y-m-d\TH:i:s.000P');
                     }
-                    
             }
         } catch (\Exception $e) {
             throw new \Exception('Wrong type ' . gettype($value) . '. Cannot convert ' . $type . ' for property ' . $property);
         }
         throw new \Exception('Wrong type ' . gettype($value) . '. It should be ' . $type . ' for property ' . $property);
     }
+
     /**
-     * Fill entity from data with nested object creation
+     * Fill entity from data with nested object creation.
      *
      * @param $entity
      * @param $data
      */
     protected function _fillFromArray($entity, $data)
-    { 
-      
-      if ($data) {
-      
-        foreach ($data as $key => $value) {
-            if (is_array($value)) {
-                $className = 'MercadoPago\\' . $this->_camelize($key);
-                if (class_exists($className, true)) {
-                    $entity->_setValue($key, new $className, false);
-                    $entity->_fillFromArray($this->{$key}, $value);
-                } else {
-                    $entity->_setValue($key, json_decode(json_encode($value)), false);
+    {
+        if ($data) {
+            foreach ($data as $key => $value) {
+                if (is_array($value)) {
+                    $className = 'MercadoPago\\' . $this->_camelize($key);
+                    if (class_exists($className, true)) {
+                        $entity->_setValue($key, new $className, false);
+                        $entity->_fillFromArray($this->{$key}, $value);
+                    } else {
+                        $entity->_setValue($key, json_decode(json_encode($value)), false);
+                    }
+                    continue;
                 }
-                continue;
+                $entity->_setValue($key, $value, false);
             }
-            $entity->_setValue($key, $value, false);
         }
-      }
     }
+
     /**
      * @param        $input
      * @param string $separator

@@ -1,9 +1,9 @@
 <?php
+
 namespace MercadoPago;
+
 /**
- * Class Manager
- *
- * @package MercadoPago
+ * Class Manager.
  */
 class Manager
 {
@@ -18,8 +18,8 @@ class Manager
     /**
      * @var
      */
-    private $_customTrackingParams=array();
-    
+    private $_customTrackingParams = [];
+
     private $_entityConfiguration;
     /**
      * @var MetaDataReader
@@ -28,7 +28,8 @@ class Manager
     /**
      * @var string
      */
-    static $CIPHER = 'sha256';
+    public static $CIPHER = 'sha256';
+
     /**
      * Manager constructor.
      *
@@ -41,6 +42,7 @@ class Manager
         $this->_config = $config;
         $this->_metadataReader = new MetaDataReader();
     }
+
     protected function _getEntityConfiguration($entity)
     {
         $className = $this->_getEntityClassName($entity);
@@ -48,10 +50,11 @@ class Manager
             return $this->_entityConfiguration[$className];
         }
         $this->_entityConfiguration[$className] = $this->_metadataReader->getMetaData($entity);
+
         return $this->_entityConfiguration[$className];
     }
-    
-    /** 
+
+    /**
      * @param string $method
      * @param null   $parameters
      *
@@ -59,15 +62,13 @@ class Manager
      */
     public function simple_execute($method)
     {
-      
     }
-      
-      
+
     public function addCustomTrackingParam($key, $value)
     {
-      $this->_customTrackingParams[$key] = $value;
+        $this->_customTrackingParams[$key] = $value;
     }
-    
+
     /**
      * @param        $entity
      * @param string $method
@@ -79,10 +80,10 @@ class Manager
     {
         $configuration = $this->_getEntityConfiguration($entity);
 
-        if ($method != 'get'){
+        if ($method != 'get') {
             foreach ($configuration->attributes as $key => $attribute) {
                 $this->validateAttribute($entity, $key, ['required']);
-            } 
+            }
         }
 
         $this->_setDefaultHeaders($configuration->query);
@@ -90,11 +91,9 @@ class Manager
         //$this->_setIdempotencyHeader($configuration->query, $configuration, $method);
         $this->setQueryParams($entity);
 
-        
-        
-        
         return $this->_client->{$method}($configuration->url, $configuration->query);
     }
+
     public function validateAttribute($entity, $attribute, array $properties, $value = null)
     {
         $configuration = $this->_getEntityConfiguration($entity);
@@ -107,18 +106,21 @@ class Manager
             }
         }
     }
+
     protected function _isValidProperty($key, $property, $entity, $attribute, $value)
     {
         switch ($property) {
             case 'required':
-                return ($entity->{$key} !== null);
+                return $entity->{$key} !== null;
             case 'maxLength':
-                return (strlen($value) <= $attribute['maxLength']);
+                return strlen($value) <= $attribute['maxLength'];
             case 'readOnly':
                 return !$attribute['readOnly'];
         }
+
         return true;
     }
+
     /**
      * @param $entity
      * @param $ormMethod
@@ -131,13 +133,13 @@ class Manager
         if (!isset($this->_entityConfiguration[$className]->methods[$ormMethod])) {
             throw new \Exception('ORM method ' . $ormMethod . ' not available for entity:' . $className);
         }
-        
+
         $url = $this->_entityConfiguration[$className]->methods[$ormMethod]['resource'];
         $matches = [];
         preg_match_all('/\\:\\w+/', $url, $matches);
-        
+
         foreach ($matches[0] as $match) {
-          $key = substr($match, 1);
+            $key = substr($match, 1);
 
             if (array_key_exists($key, $params)) {
                 $url = str_replace($match, $params[$key], $url);
@@ -149,6 +151,7 @@ class Manager
         }
         $this->_entityConfiguration[$className]->url = $url;
     }
+
     /**
      * @param $entity
      *
@@ -158,6 +161,7 @@ class Manager
     {
         return $this->_getEntityConfiguration($this->_getEntityClassName($entity));
     }
+
     /**
      * @param $entity
      *
@@ -170,17 +174,19 @@ class Manager
         } else {
             $className = $entity;
         }
+
         return $className;
     }
+
     /**
      * @param $entity
      */
-    public function getExcludedAttributes($entity){
-
+    public function getExcludedAttributes($entity)
+    {
         $className = $this->_getEntityClassName($entity);
         $configuration = $this->_getEntityConfiguration($entity);
-        
-        $excluded_attributes = array();
+
+        $excluded_attributes = [];
         $attributes = $entity->getAttributes();
 
         // if ($className == "MercadoPago\Refund") {
@@ -188,18 +194,19 @@ class Manager
         // }
 
         foreach ($attributes as $key => $val) {
-
-            if (array_key_exists($key, $configuration->attributes)){
+            if (array_key_exists($key, $configuration->attributes)) {
                 $attribute_conf = $configuration->attributes[$key];
 
-                if ($attribute_conf['serialize'] == False) {
+                if ($attribute_conf['serialize'] == false) {
                     // Do nothing
-                    array_push($excluded_attributes, $key); 
+                    array_push($excluded_attributes, $key);
                 }
             }
         }
+
         return $excluded_attributes;
     }
+
     /**
      * @param $entity
      */
@@ -210,14 +217,14 @@ class Manager
         $this->_attributesToJson($entity, $result, $this->_entityConfiguration[$className]);
         $this->_entityConfiguration[$className]->query['json_data'] = json_encode($result);
     }
+
     public function setRawQueryJsonData($entity, $data)
     {
-      $className = $this->_getEntityClassName($entity);
-      $this->_entityConfiguration[$className]->query['json_data'] = json_encode($data);
+        $className = $this->_getEntityClassName($entity);
+        $this->_entityConfiguration[$className]->query['json_data'] = json_encode($data);
     }
-    
 
-     /**
+    /**
      * @param $entity
      */
     public function cleanEntityDeltaQueryJsonData($entity)
@@ -239,8 +246,9 @@ class Manager
 
         $result = $this->_arrayDiffRecursive($last_attributes, $new_attributes);
 
-        $this->_entityConfiguration[$className]->query['json_data'] = json_encode($result); 
+        $this->_entityConfiguration[$className]->query['json_data'] = json_encode($result);
     }
+
     /**
      * @param $configuration
      */
@@ -249,6 +257,7 @@ class Manager
         $configuration = $this->_getEntityConfiguration($entity);
         $configuration->query['url_query'] = null;
     }
+
     /**
      * @param $configuration
      */
@@ -257,8 +266,6 @@ class Manager
         $configuration = $this->_getEntityConfiguration($entity);
         $params = [];
 
-        
-        
         if (!isset($configuration->query) || !isset($configuration->query['url_query'])) {
             $configuration->query['url_query'] = $params;
         }
@@ -272,6 +279,7 @@ class Manager
             }
         }
     }
+
     /**
      * @param $entity
      * @param $result
@@ -279,38 +287,36 @@ class Manager
      */
     protected function _attributesToJson($entity, &$result)
     {
-      if (is_array($entity)) {             
-          $attributes = array_filter($entity); 
-      } else { 
-          $attributes = $entity->toArray();
-      }
-      
-       foreach ($attributes as $key => $value) {
-           if ($value instanceof Entity || is_array($value)) {
-               $this->_attributesToJson($value, $result[$key]);
-           } else {
-             if ($value != null){
-               $result[$key] = $value;
-             } 
-           } 
-       } 
+        if (is_array($entity)) {
+            $attributes = array_filter($entity);
+        } else {
+            $attributes = $entity->toArray();
+        }
+
+        foreach ($attributes as $key => $value) {
+            if ($value instanceof Entity || is_array($value)) {
+                $this->_attributesToJson($value, $result[$key]);
+            } else {
+                if ($value != null) {
+                    $result[$key] = $value;
+                }
+            }
+        }
     }
 
     protected function _arrayDiffRecursive($firstArray, $secondArray)
-    { 
+    {
         $difference = [];
         foreach ($firstArray as $firstKey => $firstValue) {
-            
-            if ($firstValue instanceof Entity){
+            if ($firstValue instanceof Entity) {
                 $firstValue = $firstValue->toArray();
             }
-            
+
             if (is_array($firstValue)) {
                 if (!array_key_exists($firstKey, $secondArray) || !is_array($secondArray[$firstKey])) {
-                    
                 } else {
                     $secondValue = $secondArray[$firstKey];
-                    if ($secondValue instanceof Entity){
+                    if ($secondValue instanceof Entity) {
                         $secondValue = $secondValue->toArray();
                     }
                     $newDiff = $this->_arrayDiffRecursive($firstValue, $secondValue);
@@ -320,43 +326,46 @@ class Manager
                 }
             } else {
                 if (!array_key_exists($firstKey, $secondArray) || $secondArray[$firstKey] != $firstValue) {
-                    if ($firstKey != "_last") {
+                    if ($firstKey != '_last') {
                         $difference[$firstKey] = $secondArray[$firstKey];
                     }
                 }
             }
         }
+
         return $difference;
     }
+
     /**
      * @param $entity
      * @param $result
      * @param $configuration
      */
-    protected function _deltaToJson($entity, &$result){
-        $specialAttributes = array("_last"); // TODO: Refactor this
+    protected function _deltaToJson($entity, &$result)
+    {
+        $specialAttributes = ['_last']; // TODO: Refactor this
 
         if (!is_array($entity)) {            // TODO: Refactor this
             $attributes = array_filter($entity->toArray());
         } else {
             $attributes = $entity;
-        };
+        }
 
         foreach ($attributes as $key => $value) {
-            if (!in_array($key, $specialAttributes)){
+            if (!in_array($key, $specialAttributes)) {
                 if ($value instanceof Entity || is_array($value)) {
                     //$this->_deltaToJson($value, $result[$key]);
                 } else {
                     $last = $entity->_last;
                     $last_value = $last->$key;
-                    if ($last_value != $value){
+                    if ($last_value != $value) {
                         $result[$key] = $value;
                     }
                 }
-
             }
         }
     }
+
     /**
      * @param $entity
      * @param $property
@@ -366,8 +375,10 @@ class Manager
     public function getPropertyType($entity, $property)
     {
         $metaData = $this->_getEntityConfiguration($entity);
+
         return $metaData->attributes[$property]['type'];
     }
+
     /**
      * @param $entity
      *
@@ -376,20 +387,20 @@ class Manager
     public function getDynamicAttributeDenied($entity)
     {
         $metaData = $this->_getEntityConfiguration($entity);
+
         return isset($metaData->denyDynamicAttribute);
     }
-    
+
     /**
      * @param $query
      */
     protected function _setCustomHeaders(&$entity, &$query)
-    { 
-        foreach ($entity::getCustomHeaders() as $key => $value){ 
+    {
+        foreach ($entity::getCustomHeaders() as $key => $value) {
             $query['headers'][$key] = $value;
         }
     }
-    
-   
+
     /**
      * @param $query
      */
@@ -398,10 +409,11 @@ class Manager
         $query['headers']['Accept'] = 'application/json';
         $query['headers']['Content-Type'] = 'application/json';
         $query['headers']['User-Agent'] = 'Mercado Pago Php SDK v' . Version::$_VERSION;
-        foreach ($this->_customTrackingParams as $key => $value){ 
+        foreach ($this->_customTrackingParams as $key => $value) {
             $query['headers'][$key] = $value;
         }
     }
+
     /**
      * @param        $query
      * @param        $configuration
@@ -420,6 +432,7 @@ class Manager
             $query['headers']['x-idempotency-key'] = hash(self::$CIPHER, $fields);
         }
     }
+
     /**
      * @param $attributes
      *
@@ -433,6 +446,7 @@ class Manager
                 $result[] = $key;
             }
         }
+
         return implode('&', $result);
     }
 }

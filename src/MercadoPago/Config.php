@@ -1,18 +1,16 @@
 <?php
+
 namespace MercadoPago;
 
 use Exception;
 
 /**
- * Config Class Doc Comment
- *
- * @package MercadoPago
+ * Config Class Doc Comment.
  */
-class Config
-    extends Config\AbstractConfig
+class Config extends Config\AbstractConfig
 {
     /**
-     * Available parsers
+     * Available parsers.
      * @var array
      */
     private $_supportedFileParsers = [
@@ -23,7 +21,7 @@ class Config
     private $_restclient = null;
 
     /**
-     * Default values
+     * Default values.
      * @return array
      */
     protected function getDefaults()
@@ -66,7 +64,7 @@ class Config
             $extension = array_pop($parts);
             $parser = $this->_getParser($extension);
 
-            foreach ((array)$parser->parse($path) as $key => $value) {
+            foreach ((array) $parser->parse($path) as $key => $value) {
                 $this->set($key, $value);
             }
         }
@@ -99,27 +97,27 @@ class Config
     }
 
     /**
-     * Set config value
+     * Set config value.
      * @param $key
      * @param $value
      */
     public function set($key, $value)
     {
         parent::set($key, $value);
-        if ($this->get('CLIENT_ID') != "" && $this->get('CLIENT_SECRET') != "" && empty($this->get('ACCESS_TOKEN'))) {
+        if ($this->get('CLIENT_ID') != '' && $this->get('CLIENT_SECRET') != '' && empty($this->get('ACCESS_TOKEN'))) {
             $response = $this->getToken();
             if (isset($response['access_token'])) {
-                parent::set('ACCESS_TOKEN', $response['access_token']); 
+                parent::set('ACCESS_TOKEN', $response['access_token']);
             }
             // Making refresh token optional
-            if (isset($response['refresh_token'])) { 
+            if (isset($response['refresh_token'])) {
                 parent::set('REFRESH_TOKEN', $response['refresh_token']);
             }
         }
     }
 
     /**
-     * Obtain token with key and secret
+     * Obtain token with key and secret.
      * @return mixed
      */
     public function getToken()
@@ -129,14 +127,15 @@ class Config
         }
         $data = ['grant_type'    => 'client_credentials',
             'client_id'     => $this->get('CLIENT_ID'),
-            'client_secret' => $this->get('CLIENT_SECRET')];
+            'client_secret' => $this->get('CLIENT_SECRET'), ];
         $this->_restclient->setHttpParam('address', $this->get('base_url'));
-        $response = $this->_restclient->post("/oauth/token", ['json_data' => json_encode($data)]);
+        $response = $this->_restclient->post('/oauth/token', ['json_data' => json_encode($data)]);
+
         return $response['body'];
     }
 
     /**
-     * Refresh token
+     * Refresh token.
      * @return mixed
      * //TODO check valid response with production credentials
      */
@@ -147,15 +146,14 @@ class Config
         }
         $data = ['grant_type'    => 'refresh_token',
                 'refresh_token'     => $this->get('REFRESH_TOKEN'),
-                'client_secret' => $this->get('ACCESS_TOKEN')];
+                'client_secret' => $this->get('ACCESS_TOKEN'), ];
         $this->_restclient->setHttpParam('address', $this->get('base_url'));
-        $response = $this->_restclient->post("/oauth/token", ['json_data' => json_encode($data)]);
+        $response = $this->_restclient->post('/oauth/token', ['json_data' => json_encode($data)]);
         if (isset($response['access_token']) && isset($response['refresh_token']) && isset($response['client_id']) && isset($response['client_secret'])) {
             parent::set('ACCESS_TOKEN', $response['access_token']);
             parent::set('REFRESH_TOKEN', $response['refresh_token']);
         }
+
         return $response['body'];
     }
-
-
 }

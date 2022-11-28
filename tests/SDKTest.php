@@ -1,20 +1,14 @@
 <?php
 
-
-
 use PHPUnit\Framework\TestCase;
 
 /**
- * EntityTest Class Doc Comment
- *
- * @package MercadoPago
+ * EntityTest Class Doc Comment.
  */
-class ConfigTest extends TestCase                                                                                       
+class SDKTest extends TestCase
 {
-
     public static function setUpBeforeClass()
     {
-
         MercadoPago\SDK::cleanCredentials();
 
         if (file_exists(__DIR__ . '/../.env')) {
@@ -23,7 +17,7 @@ class ConfigTest extends TestCase
         }
 
         MercadoPago\SDK::setClientId(getenv('CLIENT_ID'));
-        MercadoPago\SDK::setClientSecret(getenv('CLIENT_SECRET')); 
+        MercadoPago\SDK::setClientSecret(getenv('CLIENT_SECRET'));
     }
 
     /**
@@ -33,15 +27,13 @@ class ConfigTest extends TestCase
     {
         $this->assertEquals(getenv('CLIENT_ID'), MercadoPago\SDK::getClientId());
         $this->assertEquals(getenv('CLIENT_SECRET'), MercadoPago\SDK::getClientSecret());
-
     }
- 
+
     /**
      * @covers                   MercadoPago\SDK
      */
     public function testDoGetToken()
-    { 
+    {
         $this->assertNotNull(MercadoPago\SDK::getAccessToken());
     }
-
 }

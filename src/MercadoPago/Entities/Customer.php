@@ -1,9 +1,10 @@
 <?php
+
 namespace MercadoPago;
 
-use MercadoPago\Annotation\RestMethod;
-use MercadoPago\Annotation\RequestParam;
 use MercadoPago\Annotation\Attribute;
+use MercadoPago\Annotation\RequestParam;
+use MercadoPago\Annotation\RestMethod;
 
 /**
  * @RestMethod(resource="/v1/customers/:id", method="read")
@@ -13,7 +14,6 @@ use MercadoPago\Annotation\Attribute;
  * @RestMethod(resource="/v1/customers/:id", method="remove")
  * @RequestParam(param="access_token")
  */
-
 class Customer extends Entity
 {
     /**
@@ -81,6 +81,4 @@ class Customer extends Entity
      * @Attribute()
      */
     protected $addresses;
-
-
 }

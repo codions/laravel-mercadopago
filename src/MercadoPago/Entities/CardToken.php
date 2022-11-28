@@ -1,16 +1,15 @@
 <?php
+
 namespace MercadoPago;
 
-use MercadoPago\Annotation\RestMethod;
-use MercadoPago\Annotation\RequestParam;
 use MercadoPago\Annotation\Attribute;
+use MercadoPago\Annotation\RestMethod;
 
 /**
  * @RestMethod(resource="/v1/card_tokens?public_key=:public_key", method="create")
  * @RestMethod(resource="/v1/card_tokens?public_key=:public_key", method="read")
  * @RestMethod(resource="/v1/card_tokens?public_key=:public_key", method="update")
  */
-
 class CardToken extends Entity
 {
     /**
@@ -78,6 +77,4 @@ class CardToken extends Entity
      * @Attribute()
      */
     protected $date_created;
-
-
 }

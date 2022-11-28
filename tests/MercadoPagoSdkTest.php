@@ -3,23 +3,15 @@
 namespace MercadoPago;
 
 /**
- * EntityTest Class Doc Comment
- *
- * @package MercadoPago
+ * EntityTest Class Doc Comment.
  */
-class MercadopagoSdkTest extends \PHPUnit\Framework\TestCase
+class MercadoPagoSdkTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     *
-     */
     protected function setUp()
     {
         Entity::unSetManager();
     }
 
-    /**
-     *
-     */
     protected function tearDown()
     {
     }
@@ -33,14 +25,10 @@ class MercadopagoSdkTest extends \PHPUnit\Framework\TestCase
         $entity = new DummyEntity();
     }
 
-    /**
-     */
     public function testInitialization()
     {
         SDK::initialize();
         $entity = new DummyEntity();
         $this->assertInstanceOf(DummyEntity::class, $entity);
     }
-
-
 }

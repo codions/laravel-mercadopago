@@ -1,9 +1,9 @@
 <?php
+
 namespace MercadoPago\Http;
+
 /**
- * Interface HttpRequest
- *
- * @package MercadoPago\Http
+ * Interface HttpRequest.
  */
 interface HttpRequest
 {
