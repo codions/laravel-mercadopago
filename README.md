@@ -1,23 +1,13 @@
-[![Latest Stable Version](https://poser.pugx.org/melhorenvio/mercadopago-dx-php-laravel/v/stable)](https://packagist.org/packages/melhorenvio/mercadopago-dx-php-laravel)
-[![Total Downloads](https://poser.pugx.org/melhorenvio/mercadopago-dx-php-laravel/downloads)](https://packagist.org/packages/melhorenvio/mercadopago-dx-php-laravel)
-[![License](https://poser.pugx.org/melhorenvio/mercadopago-dx-php-laravel/license)](https://packagist.org/packages/melhorenvio/mercadopago-dx-php-laravel)
+[![Latest Stable Version](https://poser.pugx.org/prismalms/laravel-mercadopago/v/stable)](https://packagist.org/packages/prismalms/laravel-mercadopago)
+[![Total Downloads](https://poser.pugx.org/prismalms/laravel-mercadopago/downloads)](https://packagist.org/packages/prismalms/laravel-mercadopago)
+[![License](https://poser.pugx.org/prismalms/laravel-mercadopago/license)](https://packagist.org/packages/prismalms/laravel-mercadopago)
 
 **No more doctrine/common and doctrine/annotations issues when using Laravel Framework.**
-
-## Why made a fork?
-
-Refer this issues/pull requests:
-
-https://github.com/mercadopago/dx-php/issues/78
-
-https://github.com/mercadopago/dx-php/issues/106
-
-https://github.com/mercadopago/dx-php/pull/136
 
 ## Disclaimers
 The current release of the application is in active development by the official mainteners (MercadoPago). Expect delayed updates here.
 
-This is **not** an official MercadoPago package. We only fixed some compatibility issues that the official maintener ignore. This package is not formally supported and the code is available as-is with no guarantees.
+This is not an official MercadoPago package. We only fixed some compatibility issues that the official maintener ignore. This package is not formally supported and the code is available as-is with no guarantees.
 
 ## Mercado Pago SDK for PHP
 
@@ -31,13 +21,9 @@ The SDK supports PHP 5.6 or major
 
 #### Using Composer
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-macos) if not already installed
-2. Go to your project directory and run `composer require melhorenvio/mercadopago-dx-php-laravel` on the command line.
-3. This how your directory structure would look like.
-
-![screen shot 2017-12-27 at 7 07 47 pm](https://user-images.githubusercontent.com/864790/34394635-44f7745a-eb39-11e7-981d-77cf759cf05f.png)
-
-4. Thats all, you have Mercado Pago SDK installed.
+1. Download Composerif not already installed
+2. Go to your project directory and run `composer require prismalms/laravel-mercadopago` on the command line.
+3. Thats all, you have Mercado Pago SDK installed.
 
 ### Quick Start 
 
@@ -48,10 +34,6 @@ The SDK supports PHP 5.6 or major
   ```
 
 2. Setup your credentials or major
-10
-​
-11
-
 
   You have two types of credentials:
 
@@ -95,10 +77,4 @@ The SDK supports PHP 5.6 or major
     $payment->save();
 
     echo $payment->status;
-
-  ?>
 ```
-  
-### Support 
-
-Write us at [developers.mercadopago.com](https://developers.mercadopago.com)
