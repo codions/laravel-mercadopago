@@ -1,7 +1,7 @@
 {
-  "name": "melhorenvio/mercadopago-dx-php-laravel",
+  "name": "prismalms/laravel-mercadopago",
   "type": "library",
-  "homepage": "https://github.com/melhorenvio/mercadopago-dx-php-laravel",
+  "homepage": "https://github.com/prismalms/laravel-mercadopago",
   "license": "MIT",
   "config": {
     "platform": {
