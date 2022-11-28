@@ -1,9 +1,10 @@
 <?php
 
-namespace MercadoPago;
+namespace MercadoPago\Entities;
 
 use MercadoPago\Annotation\Attribute;
 use MercadoPago\Annotation\RestMethod;
+use MercadoPago\Entity;
 
 /**
  * @RestMethod(resource="/v1/card_tokens?public_key=:public_key", method="create")

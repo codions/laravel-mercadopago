@@ -1,10 +1,11 @@
 <?php
 
-namespace MercadoPago;
+namespace MercadoPago\Entities;
 
 use MercadoPago\Annotation\Attribute;
 use MercadoPago\Annotation\RequestParam;
 use MercadoPago\Annotation\RestMethod;
+use MercadoPago\Entity;
 
 /**
  * @RestMethod(resource="/v1/invoices/:id", method="read")
