@@ -1,7 +1,7 @@
 {
-  "name": "prismalms/laravel-mercadopago",
+  "name": "codions/laravel-mercadopago",
   "type": "library",
-  "homepage": "https://github.com/prismalms/laravel-mercadopago",
+  "homepage": "https://github.com/codions/laravel-mercadopago",
   "license": "MIT",
   "config": {
     "platform": {
